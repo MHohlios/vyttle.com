@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* ==================== THEME VARIABLES ==================== */
+
+:root {
+  /* Vyttle Core */
+  --midnight: #0C0E1A;
+  --navy: #1A1E35;
+  --slate: #5B6178;
+  --silver: #A8ADBD;
+  --fog: #DDE0E8;
+  --white: #F4F5F7;
+  --amber: #D4933D;
+  --gold: #F0D48A;
+
+  /* App Accents */
+  --crema: #C4956A;
+  --crema-light: #DFC5A8;
+  --tomato: #A63D2F;
+  --tomato-light: #E8A99E;
+  --bramble-purple: #7B5EA7;
+  --bramble-light: #B89DD4;
+
+  /* Theme — defaults to dark */
+  --bg-primary: var(--midnight);
+  --bg-secondary: var(--navy);
+  --bg-card: rgba(26, 30, 53, 0.6);
+  --text-primary: var(--fog);
+  --text-secondary: var(--slate);
+  --text-tertiary: var(--silver);
+  --border: rgba(91, 97, 120, 0.2);
+  --card-border: rgba(168, 173, 189, 0.08);
+  --nav-bg: rgba(12, 14, 26, 0.85);
+}
+
+[data-theme="light"] {
+  --bg-primary: var(--white);
+  --bg-secondary: #ECEDF0;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --text-primary: var(--midnight);
+  --text-secondary: var(--slate);
+  --text-tertiary: var(--silver);
+  --border: rgba(221, 224, 232, 0.8);
+  --card-border: rgba(221, 224, 232, 0.5);
+  --nav-bg: rgba(244, 245, 247, 0.85);
+}
+
+/* ==================== TAILWIND THEME ==================== */
+
+@theme inline {
+  --font-outfit: var(--font-outfit);
+  --font-dm-sans: var(--font-dm-sans);
+  --font-source-serif: var(--font-source-serif);
+
+  --color-midnight: #0C0E1A;
+  --color-navy: #1A1E35;
+  --color-slate: #5B6178;
+  --color-silver: #A8ADBD;
+  --color-fog: #DDE0E8;
+  --color-vtl-white: #F4F5F7;
+  --color-amber: #D4933D;
+  --color-gold: #F0D48A;
+
+  --color-crema: #C4956A;
+  --color-crema-light: #DFC5A8;
+  --color-tomato: #A63D2F;
+  --color-tomato-light: #E8A99E;
+  --color-bramble: #7B5EA7;
+  --color-bramble-light: #B89DD4;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 8s ease-in-out infinite;
+  --animate-scroll-hint: scroll-hint 2s ease-in-out infinite;
+}
+
+/* ==================== KEYFRAMES ==================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -55%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -55%) scale(1.1); }
+}
+
+@keyframes scroll-hint {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(6px); }
+}
+
+/* ==================== BASE STYLES ==================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  min-height: 100vh;
+  transition: background 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* ==================== PROSE STYLES (for MDX pages) ==================== */
+
+.prose h1 {
+  font-family: var(--font-outfit), "Outfit", sans-serif;
+  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  transition: color 0.4s ease;
+}
+
+.prose h2 {
+  font-family: var(--font-outfit), "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.4s ease;
+}
+
+.prose p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  transition: color 0.4s ease;
+}
+
+.prose ul {
+  color: var(--text-secondary);
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  transition: color 0.4s ease;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.prose a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--gold);
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: color 0.4s ease;
+}
