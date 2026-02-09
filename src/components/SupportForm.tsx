@@ -1,0 +1,268 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { apps } from "@/lib/apps";
+
+export default function SupportForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    app: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const appParam = params.get("app");
+    if (appParam) {
+      setFormData((prev) => ({ ...prev, app: appParam }));
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "support",
+          ...formData,
+        }).toString(),
+      });
+      setSubmitted(true);
+    } catch {
+      alert(
+        "Sorry, something went wrong. Please try again or email support@vyttle.com"
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="max-w-lg mx-auto text-center py-16">
+        <div
+          className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+          style={{ background: "rgba(212, 147, 61, 0.15)" }}
+        >
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="var(--amber)"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+        </div>
+        <h2
+          className="text-2xl font-medium mb-4"
+          style={{
+            fontFamily: "var(--font-outfit), Outfit, sans-serif",
+            color: "var(--text-primary)",
+          }}
+        >
+          Thanks for reaching out!
+        </h2>
+        <p
+          className="text-base font-light mb-8"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            color: "var(--text-secondary)",
+          }}
+        >
+          We&apos;ve received your message and will get back to you soon.
+        </p>
+        <button
+          onClick={() => {
+            setSubmitted(false);
+            setFormData({ name: "", email: "", app: "", message: "" });
+          }}
+          className="text-sm cursor-pointer bg-transparent border-none"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            color: "var(--amber)",
+          }}
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
+  const inputStyle = {
+    fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+    fontWeight: 300,
+    fontSize: "15px",
+    padding: "12px 16px",
+    borderRadius: "10px",
+    border: "1px solid var(--border)",
+    background: "var(--bg-card)",
+    color: "var(--text-primary)",
+    outline: "none",
+    width: "100%",
+    transition: "all 0.2s ease",
+  };
+
+  return (
+    <form
+      name="support"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={handleSubmit}
+      className="max-w-lg mx-auto flex flex-col gap-5"
+    >
+      <input type="hidden" name="form-name" value="support" />
+      <div hidden>
+        <label>
+          Don&apos;t fill this out: <input name="bot-field" />
+        </label>
+      </div>
+
+      {/* Name */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="name"
+          className="text-xs"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            fontWeight: 400,
+            letterSpacing: "1px",
+            color: "var(--text-secondary)",
+          }}
+        >
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="Your name"
+          value={formData.name}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, name: e.target.value }))
+          }
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Email */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="email"
+          className="text-xs"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            fontWeight: 400,
+            letterSpacing: "1px",
+            color: "var(--text-secondary)",
+          }}
+        >
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="you@example.com"
+          value={formData.email}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, email: e.target.value }))
+          }
+          style={inputStyle}
+        />
+      </div>
+
+      {/* App */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="app"
+          className="text-xs"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            fontWeight: 400,
+            letterSpacing: "1px",
+            color: "var(--text-secondary)",
+          }}
+        >
+          App
+        </label>
+        <select
+          id="app"
+          name="app"
+          required
+          value={formData.app}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, app: e.target.value }))
+          }
+          style={inputStyle}
+        >
+          <option value="">Select an app...</option>
+          {apps.map((a) => (
+            <option key={a.slug} value={a.slug}>
+              {a.name}
+            </option>
+          ))}
+          <option value="general">General / Other</option>
+        </select>
+      </div>
+
+      {/* Message */}
+      <div className="flex flex-col gap-1.5">
+        <label
+          htmlFor="message"
+          className="text-xs"
+          style={{
+            fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+            fontWeight: 400,
+            letterSpacing: "1px",
+            color: "var(--text-secondary)",
+          }}
+        >
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          placeholder="How can we help?"
+          value={formData.message}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, message: e.target.value }))
+          }
+          style={{ ...inputStyle, resize: "vertical", minHeight: "120px" }}
+        />
+      </div>
+
+      {/* Submit */}
+      <button
+        type="submit"
+        disabled={submitting}
+        className="text-sm font-medium py-3.5 px-8 rounded-[10px] border-none cursor-pointer self-start transition-all duration-200"
+        style={{
+          fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+          letterSpacing: "1px",
+          background: "var(--amber)",
+          color: "#fff",
+          opacity: submitting ? 0.5 : 1,
+        }}
+      >
+        {submitting ? "Sending..." : "Send Message"}
+      </button>
+    </form>
+  );
+}
