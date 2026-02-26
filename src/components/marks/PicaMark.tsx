@@ -22,11 +22,11 @@ export default function PicaMark({
       aria-label="Pica logomark"
     >
       {/* Bottom-left cell (neutral) */}
-      <rect x="1" y="53" width="26" height="26" rx="3" fill="var(--mark-neutral)" />
+      <rect x="1" y="53" width="26" height="26" rx="3" fill="var(--pica-structural)" />
       {/* Center cell (accent) */}
       <rect x="28" y="28" width="26" height="26" rx="3" fill={color} />
       {/* Top-right cell (neutral) */}
-      <rect x="55" y="3" width="26" height="26" rx="3" fill="var(--mark-neutral)" />
+      <rect x="55" y="3" width="26" height="26" rx="3" fill="var(--pica-structural)" />
     </svg>
   );
 }
