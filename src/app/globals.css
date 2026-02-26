@@ -39,7 +39,12 @@
   /* Theme-aware mark colors — dark defaults */
   --mark-neutral: #DDD8CC;
   --mark-neutral-sub: rgba(221, 216, 204, 0.5);
+  --sixteen-structural: #DFC5A8;
+  --stockpot-structural: #5D8A80;
+  --bramble-structural: #6A9DC8;
   --bramble-accent: #7B5EA7;
+  --pica-structural: #A8ADBD;
+  --reviso-structural: #5B6178;
   --cyan-deep: #06B6D4;
   --reviso-accent: var(--cyan);
 
@@ -68,7 +73,12 @@
   /* Theme-aware mark colors — light overrides */
   --mark-neutral: #1A1E35;
   --mark-neutral-sub: rgba(26, 30, 53, 0.5);
+  --sixteen-structural: #1C1008;
+  --stockpot-structural: #1E3D38;
+  --bramble-structural: #1E3A5F;
   --bramble-accent: #6A4F94;
+  --pica-structural: #1A1E35;
+  --reviso-structural: #A8ADBD;
   --reviso-accent: var(--cyan-deep);
 
   /* Theme-aware accent — hero "design" word */
