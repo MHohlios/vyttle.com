@@ -16,7 +16,7 @@ export default function VyttleMark({ size = 56, className = "", style }: VyttleM
       aria-label="Vyttle logomark"
     >
       <path d="M28,0 L56,32 L28,64 L0,32 Z" fill="var(--mark-neutral)" />
-      <circle cx="28" cy="32" r="10" fill="var(--mark-neutral)" />
+      <circle cx="28" cy="32" r="10" fill="var(--bg-primary)" />
       <circle cx="28" cy="32" r="7" fill="#D4933D" />
     </svg>
   );

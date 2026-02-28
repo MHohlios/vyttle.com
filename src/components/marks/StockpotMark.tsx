@@ -28,7 +28,7 @@ export default function StockpotMark({
       {/* Right handle */}
       <rect x="50" y="26" width="8" height="8" rx="3" fill="var(--stockpot-structural)" />
       {/* Center ring fill */}
-      <circle cx="30" cy="30" r="7" fill="var(--stockpot-structural)" />
+      <circle cx="30" cy="30" r="7" fill="var(--bg-primary)" />
       {/* Center dot */}
       <circle cx="30" cy="30" r="5" fill={color} />
     </svg>
